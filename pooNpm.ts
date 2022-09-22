@@ -1,54 +1,71 @@
  class SistemaEducativo{
+     private establecimiento: string;
      private registroDocentes: Profesor[];
      private registroAlumnos: Alumno[];
-     private estadoDocentes: boolean;
 
-     constructor(pRegistroDocentes:Profesor[], pRegistroAlumnos:Alumno[], pEstadoDocentes:boolean){
+     constructor( pEstablecimiento:string,pRegistroDocentes:Profesor[], pRegistroAlumnos:Alumno[]){
+         this.establecimiento = pEstablecimiento;
          this.registroDocentes = pRegistroDocentes;
          this.registroAlumnos = pRegistroAlumnos;
-         this.estadoDocentes = pEstadoDocentes;
 
      }
 
-     verListadoDocentes():void{
-         this.registroDocentes = this.registroDocentes;
-     }
-
-     verListadoAlumnos():void{
-        this.registroAlumnos = this.registroAlumnos;
-     }
-
-     verEstadoDocentes():void{
-         if(this.estadoDocentes === true){
-             this.estadoDocentes = false;
-         }else{
-             this.estadoDocentes = true;
+     
+     cargarEstablecimineto():void{
+         this.establecimiento = this.establecimiento;
         }
-     }
-
-     contratar():void{
-        this.registroDocentes = this.registroDocentes++;
+        
+        verListadoDocentes():void{
+            this.registroDocentes = this.registroDocentes;
+        }
+        
+        verListadoAlumnos():void{
+            this.registroAlumnos = this.registroAlumnos;
+        }
+        
+        contratarProfesor(nuevoDocente:Profesor):void{
+            this.registroDocentes.push(nuevoDocente);
  
-     }
-     despedir():void{
-        this.registroDocentes = this.registroDocentes--;
- 
-     }
-
- }
-
- 
- class Profesor{
+        }
+        despedirProfesor(despedirDocente:Profesor):void{
+            for(let i:number=0; i<this.registroDocentes.length; i++){
+                if(despedirDocente.getApellidoProfesor() === this.registroDocentes[i].getApellidoProfesor()){
+                    this.registroDocentes.splice(i,1);
+                }else{
+                    console.log("No se encontro Profesor");
+                }
+            }
+            
+        }
+        
+    }
+    
+    
+    class Profesor{
+        private nombreProfesor: string;
+    private apellidoProfesor: string;
+    private materia: string;
     private registroAlumnos: Alumno[];
     private notasAlumnos: number;
     private estadoAlumno: string;
     
-
-    constructor(pRegistroAlumnos:Alumno[], pNotasAlumnos:number, pEstadoAlumnos:string){
+    
+    constructor(pnombreProfesor:string,papellidoProfesor:string,pmateria:string,pRegistroAlumnos:Alumno[],){
+        this.nombreProfesor = pnombreProfesor;
+        this.apellidoProfesor = papellidoProfesor;
+        this.materia = pmateria;
         this.registroAlumnos = pRegistroAlumnos;
-        this.notasAlumnos = pNotasAlumnos;
-        this.estadoAlumno = pEstadoAlumnos;
+        
+    }
+    
+    public getApellidoProfesor():string{
+       return this.apellidoProfesor;
+    }
 
+    ingresoProfesor():void{
+        this.nombreProfesor = this.nombreProfesor;
+        this.apellidoProfesor = this.apellidoProfesor;
+        this.materia = this.materia;
     }
 
     verListadoAlumnos():void{
@@ -90,15 +107,17 @@ class Alumno{
         this.notaGeografia = pNotaGeografia;
     }
 
+    inscribirAlumno():void{
+        this.nombreAlumno = this.nombreAlumno;
+        this.apellidoAlumno = this.apellidoAlumno;
+    }
+
     verNotas():void{
         this.notaMatematicas = this.notaMatematicas;
         this.notaLengua = this.notaLengua;
         this.notaGeografia = this.notaGeografia;
     }
 
-    // verEstadoAlumno():void{
-    //    this.estadoAlumno = this.estadoAlumno;
-    // }
     verEstadoAlumno():string{
         if(this.notaMatematicas > 7 || this.notaGeografia > 7 || this.notaGeografia > 7){
             this.estadoAlumno = "Aprobado";
@@ -111,13 +130,24 @@ class Alumno{
 
 }
 
-let primerAlumno: Alumno = new Alumno("Mario","Schmoker","Aprovado",8,9,10); 
-console.log(primerAlumno);  
+let primerAlumno: Alumno = new Alumno("Juan","Gomez","Aprovado",8,9,9); 
+let segundoAlumno: Alumno = new Alumno("Marta","Gimenez","Aprovado",9,8,10); 
+let tercerAlumno: Alumno = new Alumno("Raul","Lopez","Desaprobado",7,5,6); 
+let cuartoAlumno: Alumno = new Alumno("Alicia","Carrizo","Desaprobado",6,7,7); 
+
+let registroAlumnos: Alumno[] = [primerAlumno,segundoAlumno,tercerAlumno,cuartoAlumno];
+
+let primerProfesor: Profesor = new Profesor("Carlos","Duarte","Matematicas",registroAlumnos);
+let segundoProfesor: Profesor = new Profesor("Maria","Almiron","lengua",registroAlumnos);
+let tercerProfesor: Profesor = new Profesor("Omar","Patiño","Geografia",registroAlumnos);
+
+let registroDocentes: Profesor[] = [primerProfesor,segundoProfesor,tercerProfesor];
+
+let primerEstablecimiento = new SistemaEducativo("Escuela n°:2",registroDocentes,registroAlumnos);
 
 
 
-// let primerAuto = new Auto(true,true,120);
-// let velocidadDelPrimerauto:number = primerAuto.obtenerVelocidad();
-// console.log(velocidadDelPrimerauto, " km/h");
-// let segundoAuto = new Auto(true,true,80);
-// console.log(segundoAuto);
+console.log(primerAlumno);
+
+console.log(segundoAlumno.verEstadoAlumno());
+console.log(tercerAlumno.verEstadoAlumno());

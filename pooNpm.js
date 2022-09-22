@@ -1,37 +1,48 @@
 var SistemaEducativo = /** @class */ (function () {
-    function SistemaEducativo(pRegistroDocentes, pRegistroAlumnos, pEstadoDocentes) {
+    function SistemaEducativo(pEstablecimiento, pRegistroDocentes, pRegistroAlumnos) {
+        this.establecimiento = pEstablecimiento;
         this.registroDocentes = pRegistroDocentes;
         this.registroAlumnos = pRegistroAlumnos;
-        this.estadoDocentes = pEstadoDocentes;
     }
+    SistemaEducativo.prototype.cargarEstablecimineto = function () {
+        this.establecimiento = this.establecimiento;
+    };
     SistemaEducativo.prototype.verListadoDocentes = function () {
         this.registroDocentes = this.registroDocentes;
     };
     SistemaEducativo.prototype.verListadoAlumnos = function () {
         this.registroAlumnos = this.registroAlumnos;
     };
-    SistemaEducativo.prototype.verEstadoDocentes = function () {
-        if (this.estadoDocentes === true) {
-            this.estadoDocentes = false;
-        }
-        else {
-            this.estadoDocentes = true;
-        }
+    SistemaEducativo.prototype.contratarProfesor = function (nuevoDocente) {
+        this.registroDocentes.push(nuevoDocente);
     };
-    SistemaEducativo.prototype.contratar = function () {
-        this.registroDocentes = this.registroDocentes++;
-    };
-    SistemaEducativo.prototype.despedir = function () {
-        this.registroDocentes = this.registroDocentes--;
+    SistemaEducativo.prototype.despedirProfesor = function (despedirDocente) {
+        for (var i = 0; i < this.registroDocentes.length; i++) {
+            if (despedirDocente.getApellidoProfesor() === this.registroDocentes[i].getApellidoProfesor()) {
+                this.registroDocentes.splice(i, 1);
+            }
+            else {
+                console.log("No se encontro Profesor");
+            }
+        }
     };
     return SistemaEducativo;
 }());
 var Profesor = /** @class */ (function () {
-    function Profesor(pRegistroAlumnos, pNotasAlumnos, pEstadoAlumnos) {
+    function Profesor(pnombreProfesor, papellidoProfesor, pmateria, pRegistroAlumnos) {
+        this.nombreProfesor = pnombreProfesor;
+        this.apellidoProfesor = papellidoProfesor;
+        this.materia = pmateria;
         this.registroAlumnos = pRegistroAlumnos;
-        this.notasAlumnos = pNotasAlumnos;
-        this.estadoAlumno = pEstadoAlumnos;
     }
+    Profesor.prototype.getApellidoProfesor = function () {
+        return this.apellidoProfesor;
+    };
+    Profesor.prototype.ingresoProfesor = function () {
+        this.nombreProfesor = this.nombreProfesor;
+        this.apellidoProfesor = this.apellidoProfesor;
+        this.materia = this.materia;
+    };
     Profesor.prototype.verListadoAlumnos = function () {
         this.registroAlumnos = this.registroAlumnos;
     };
@@ -61,14 +72,15 @@ var Alumno = /** @class */ (function () {
         this.notaLengua = pNotaLengua;
         this.notaGeografia = pNotaGeografia;
     }
+    Alumno.prototype.inscribirAlumno = function () {
+        this.nombreAlumno = this.nombreAlumno;
+        this.apellidoAlumno = this.apellidoAlumno;
+    };
     Alumno.prototype.verNotas = function () {
         this.notaMatematicas = this.notaMatematicas;
         this.notaLengua = this.notaLengua;
         this.notaGeografia = this.notaGeografia;
     };
-    // verEstadoAlumno():void{
-    //    this.estadoAlumno = this.estadoAlumno;
-    // }
     Alumno.prototype.verEstadoAlumno = function () {
         if (this.notaMatematicas > 7 || this.notaGeografia > 7 || this.notaGeografia > 7) {
             this.estadoAlumno = "Aprobado";
@@ -80,10 +92,16 @@ var Alumno = /** @class */ (function () {
     };
     return Alumno;
 }());
-var primerAlumno = new Alumno("Mario", "Schmoker", "Aprovado", 8, 9, 10);
+var primerAlumno = new Alumno("Juan", "Gomez", "Aprovado", 8, 9, 9);
+var segundoAlumno = new Alumno("Marta", "Gimenez", "Aprovado", 9, 8, 10);
+var tercerAlumno = new Alumno("Raul", "Lopez", "Desaprobado", 7, 5, 6);
+var cuartoAlumno = new Alumno("Alicia", "Carrizo", "Desaprobado", 6, 7, 7);
+var registroAlumnos = [primerAlumno, segundoAlumno, tercerAlumno, cuartoAlumno];
+var primerProfesor = new Profesor("Carlos", "Duarte", "Matematicas", registroAlumnos);
+var segundoProfesor = new Profesor("Maria", "Almiron", "lengua", registroAlumnos);
+var tercerProfesor = new Profesor("Omar", "Patiño", "Geografia", registroAlumnos);
+var registroDocentes = [primerProfesor, segundoProfesor, tercerProfesor];
+var primerEstablecimiento = new SistemaEducativo("Escuela n°:2", registroDocentes, registroAlumnos);
 console.log(primerAlumno);
-// let primerAuto = new Auto(true,true,120);
-// let velocidadDelPrimerauto:number = primerAuto.obtenerVelocidad();
-// console.log(velocidadDelPrimerauto, " km/h");
-// let segundoAuto = new Auto(true,true,80);
-// console.log(segundoAuto);
+console.log(segundoAlumno.verEstadoAlumno());
+console.log(tercerAlumno.verEstadoAlumno());
