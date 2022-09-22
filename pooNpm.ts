@@ -15,19 +15,19 @@
          this.establecimiento = this.establecimiento;
         }
         
-        verListadoDocentes():void{
+     verListadoDocentes():void{
             this.registroDocentes = this.registroDocentes;
         }
         
-        verListadoAlumnos():void{
+     verListadoAlumnos():void{
             this.registroAlumnos = this.registroAlumnos;
         }
         
-        contratarProfesor(nuevoDocente:Profesor):void{
+     contratarProfesor(nuevoDocente:Profesor):void{
             this.registroDocentes.push(nuevoDocente);
  
         }
-        despedirProfesor(despedirDocente:Profesor):void{
+     despedirProfesor(despedirDocente:Profesor):void{
             for(let i:number=0; i<this.registroDocentes.length; i++){
                 if(despedirDocente.getApellidoProfesor() === this.registroDocentes[i].getApellidoProfesor()){
                     this.registroDocentes.splice(i,1);
@@ -43,11 +43,11 @@
     
     class Profesor{
         private nombreProfesor: string;
-    private apellidoProfesor: string;
-    private materia: string;
-    private registroAlumnos: Alumno[];
-    private notasAlumnos: number;
-    private estadoAlumno: string;
+        private apellidoProfesor: string;
+        private materia: string;
+        private registroAlumnos: Alumno[];
+        private notasAlumnos: number;
+        private estadoAlumno: string;
     
     
     constructor(pnombreProfesor:string,papellidoProfesor:string,pmateria:string,pRegistroAlumnos:Alumno[],){
@@ -58,33 +58,33 @@
         
     }
     
-    public getApellidoProfesor():string{
+     public getApellidoProfesor():string{
        return this.apellidoProfesor;
     }
 
-    ingresoProfesor():void{
+     ingresoProfesor():void{
         this.nombreProfesor = this.nombreProfesor;
         this.apellidoProfesor = this.apellidoProfesor;
         this.materia = this.materia;
     }
 
-    verListadoAlumnos():void{
+     verListadoAlumnos():void{
        this.registroAlumnos = this.registroAlumnos;
     }
-    verNotasAlumnos():void{
+     verNotasAlumnos():void{
         this.notasAlumnos = this.notasAlumnos;
-     }
+    }
  
-    verEstadoAlumno():string{
+     verEstadoAlumno():string{
         if(this.notasAlumnos > 7){
             this.estadoAlumno = "Aprobado";
-        }else{
+         }else{
             this.estadoAlumno = "Desaprobado";
-       }
-       return this.estadoAlumno
-    }
+         }
+           return this.estadoAlumno
+        }
 
-    ponerNota():void{
+     ponerNota():void{
        this.notasAlumnos = this.notasAlumnos;
 
     }
@@ -151,3 +151,15 @@ console.log(primerAlumno);
 
 console.log(segundoAlumno.verEstadoAlumno());
 console.log(tercerAlumno.verEstadoAlumno());
+
+console.log(registroDocentes);
+
+console.log(primerEstablecimiento.contratarProfesor(new Profesor("Leticia","Gardel","Biología",registroAlumnos)));
+console.log(primerEstablecimiento.contratarProfesor(new Profesor("Ruben","Garcia","Ingles",registroAlumnos)));
+
+console.log(registroDocentes);
+
+console.log(primerEstablecimiento.despedirProfesor(primerProfesor));
+
+console.log(registroDocentes);
+

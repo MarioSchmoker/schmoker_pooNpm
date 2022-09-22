@@ -105,3 +105,9 @@ var primerEstablecimiento = new SistemaEducativo("Escuela n°:2", registroDocent
 console.log(primerAlumno);
 console.log(segundoAlumno.verEstadoAlumno());
 console.log(tercerAlumno.verEstadoAlumno());
+console.log(registroDocentes);
+console.log(primerEstablecimiento.contratarProfesor(new Profesor("Leticia", "Gardel", "Biología", registroAlumnos)));
+console.log(primerEstablecimiento.contratarProfesor(new Profesor("Ruben", "Garcia", "Ingles", registroAlumnos)));
+console.log(registroDocentes);
+console.log(primerEstablecimiento.despedirProfesor(primerProfesor));
+console.log(registroDocentes);
